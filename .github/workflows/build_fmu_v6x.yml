@@ -1,0 +1,30 @@
+name: Build px4_fmu-v6x_default
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dyx-4wd-production
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          bash ./Tools/setup/ubuntu.sh --no-sim-tools
+          pip3 install packaging
+
+      - name: Build px4_fmu-v6x_default
+        run: make px4_fmu-v6x_default
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: px4_fmu-v6x_default_firmware
+          path: build/px4_fmu-v6x_default/px4_fmu-v6x_default.px4
