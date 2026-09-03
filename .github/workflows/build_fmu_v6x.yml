@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - dyx-4wd-production
+    paths-ignore:
+      - 'CLAUDE.md'
 
 jobs:
   build:
