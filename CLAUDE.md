@@ -48,12 +48,16 @@ gh run download <run-id> --repo Vetri2425/PX4-Autopilot-4WD-Prod-Baseline --dir 
 
 After every successful build, copy the `.px4` into:
 ```
-PX4-Firmware/<short-sha>-<slugified-commit-message>/
+PX4-Firmware/4WD/<short-sha>-<slugified-commit-message>/
   px4_fmu-v6x_default.px4
   build_info.txt   # SHA, branch, message, target, CI run URL
 ```
 `PX4-Firmware/` sits alongside this repo at `/Users/dyx_a1/Vetri/Way_to_Mark/PX4-Firmware/`,
 one subfolder per successful build — never overwrite a prior build's folder.
+
+Builds are namespaced **per vehicle**: `PX4-Firmware/4WD/` here, `PX4-Firmware/3WD/` for the
+`Vetri2425/PX4-Autopilot-3WD-Prod` repo. Both vehicles pin the same base (`v1.17.0` ==
+`d6f12ad1c4`) and build the same target name, so a flat archive would be ambiguous.
 
 ⚠ **No local build.** Local submodules are fully deinitialized (`git submodule deinit --all`)
 on purpose — this machine's network repeatedly stalls on PX4's larger submodules
